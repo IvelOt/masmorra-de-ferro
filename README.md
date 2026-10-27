@@ -27,6 +27,7 @@
 - [Controles](#controles)
 - [Exportando binários standalone](#exportando-binários-standalone)
 - [Verificação headless (gates)](#verificação-headless-gates)
+- [Como replicar o experimento e criar novas iterações](#como-replicar-o-experimento-e-criar-novas-iterações)
 - [Estrutura do repositório](#estrutura-do-repositório)
 - [Créditos e licença dos assets](#créditos-e-licença-dos-assets)
 
@@ -102,7 +103,7 @@ Cada execução também guarda a evidência por iteração em `media/iter_N/` (v
 | **Godot Engine** | **4.7 ou superior** (os projetos declaram `config/features = "4.7"`; testado com 4.7.2.stable). Versão padrão (GDScript), não a .NET |
 | **Sistema** | Linux x86_64, com X11 ou Wayland (via XWayland) |
 | **Vídeo** | GPU com Vulkan ou OpenGL 3.3 |
-| **Bash** | 4+ (para `run.sh` e `export.sh`) |
+| **Bash** | 4+ (para `run.sh`, `export.sh` e `iterate.sh`) |
 | **Exportação** | Export templates do Godot da mesma versão do editor (veja abaixo) |
 | Opcional | `xvfb-run` para rodar sem monitor; `python3` para as ferramentas em `tools/` |
 
@@ -271,13 +272,101 @@ xvfb-run -a godot --path execucoes/exec_1_C2/game --write-movie /tmp/f.png --fix
 
 ---
 
+## Como replicar o experimento e criar novas iterações
+
+As cinco execuções acima são artefatos congelados. Para rodar o experimento de novo, ou testar outro modelo, outro prompt ou outra versão do Godot, o repositório traz o ponto de partida e o ciclo completo:
+
+| Peça | Onde | O que é |
+|---|---|---|
+| Repositório-semente | [`template/`](template) | `GDD.md` oficial com os marcos M1–M6, `game/project.godot` inicial, assets CC0 (`game/assets/free/`, `asset_map.json`, `CREDITS.md`), `export_presets.cfg`, esqueleto vazio de `game/tests/run_gates.gd` e `tools/` (`gen_trig_table.py`, `lint_sim.py`). **Nenhum código de jogo.** |
+| Prompts e papéis | [`experiment/prompts/`](experiment/prompts) | Planejador, Desenvolvedor e Testador / Auditor Multimodal, com o texto exato usado no TCC |
+| Evidência | [`experiment/schemas/`](experiment/schemas) | JSON Schema do `relatorio_provas.json` |
+| Orquestração | [`iterate.sh`](iterate.sh) | cria execuções, mostra ou roda cada fase, captura mídia, roda gates e checagens |
+
+O protocolo (papéis, diagrama do ciclo, formato da evidência e diferenças em relação ao orquestrador original) está em [`experiment/README.md`](experiment/README.md).
+
+### O ciclo HoH em três papéis
+
+Cada rodada `N` passa por quatro fases, e cada uma termina com um commit de mensagem fixa no repositório git da execução:
+
+1. **Planejador** lê o `GDD.md` e a evidência da rodada anterior, escolhe até 2 marcos e escreve `plano_iteracao.md` → `docs: plano iteracao N`.
+2. **Desenvolvedor** implementa o plano em `game/` (núcleo inteiro em `sim/`, cena `view/main.tscn`, gates em `tests/run_gates.gd`) → `feat: implementacao iteracao N`.
+3. **Captura** (feita pelo `iterate.sh`, sem agente): `--check-only` e 6 s de vídeo da cena com dois quadros em `media/iter_N/` → `chore: midia capturada para auditoria da iteracao N`.
+4. **Testador / Auditor Multimodal** olha os quadros, roda os gates headless e escreve `relatorio_provas.json` → `docs: provas iteracao N`.
+
+A execução termina quando o Testador grava `"all_milestones_passed": true`. No TCC o limite foi de 6 rodadas.
+
+### Fluxo dos assets
+
+Os sprites e texturas são dados fixos: vêm prontos em `template/game/assets/free/` (Dungeon Crawl Stone Soup, CC0), com um identificador lógico por arquivo em `asset_map.json` e origem e SHA-256 em `CREDITS.md`. Os agentes só os referenciam (`res://assets/free/...` ou pelo identificador do mapa) e não criam arte nova. `./iterate.sh check` confere que todo PNG tem entrada em `CREDITS.md` e que nada de `game/assets/daggerfall/` foi versionado.
+
+### Passo a passo
+
+```bash
+# 1. Crie uma execução a partir do template (vira um repositório git próprio)
+./iterate.sh new exec_custom          # -> execucoes/exec_custom/
+
+# 2. Veja a próxima fase: imprime o prompt pronto do Planejador da rodada 1
+./iterate.sh next exec_custom
+
+# 3a. Manual: abra o Claude Code (ou outro agente) dentro da execução e cole o prompt
+cd execucoes/exec_custom && claude --model opus
+
+# 3b. Ou deixe o script chamar o agente na fase pendente
+./iterate.sh next exec_custom --run
+
+# 4. Repita "next" até o fim, ou rode o ciclo inteiro sozinho (até o aceite ou 6 rodadas)
+./iterate.sh loop exec_custom --max 6
+
+# Acompanhe
+./iterate.sh status exec_custom       # fases concluídas por rodada e próxima fase
+./iterate.sh list                     # todas as execuções
+```
+
+Sem argumentos, `./iterate.sh` abre um menu interativo. Todos os comandos:
+
+| Comando | O que faz |
+|---|---|
+| `new <nome>` | copia `template/` para `execucoes/<nome>/`, faz `git init` e o commit inicial |
+| `list` / `status <nome>` | lista as execuções / mostra as fases de cada rodada e a próxima |
+| `next <nome> [--run]` | mostra o prompt da próxima fase (ou a executa com `--run`; a captura sempre executa) |
+| `plan` / `dev` / `test <nome> [--iter N] [--run]` | uma fase específica do Planejador, Desenvolvedor ou Testador |
+| `prompt <nome> <plan\|dev\|test> [--iter N]` | só o texto do prompt, para colar ou redirecionar (`\| claude -p`) |
+| `capture <nome> [--iter N]` | grava `media/iter_N/` (vídeo, `frame_1.png`, `frame_2.png`, `resumo_midia.json`) |
+| `loop <nome> [--max N]` | roda plan → dev → capture → test com o agente até o aceite ou N rodadas |
+| `gates <nome>` | `godot --headless --path game -s res://tests/run_gates.gd` (exit 0 = todos passam) |
+| `check <nome>` | sintaxe de cada `.gd` (`--check-only`), `tools/lint_sim.py` e guarda de assets |
+| `validate <nome>` | valida `relatorio_provas.json` contra o esquema |
+| `play` / `editor <nome>` | joga a cena principal / abre no editor |
+
+`gates`, `check`, `validate` e `status` também funcionam nas execuções arquivadas (ex.: `./iterate.sh gates exec_1_C2`); os comandos que escrevem recusam essas cinco.
+
+Configuração por variáveis de ambiente:
+
+| Variável | Padrão | Uso |
+|---|---|---|
+| `HOH_AGENT_CMD` | `claude -p --model "$HOH_MODEL" --dangerously-skip-permissions` | agente chamado com `--run`; recebe o prompt na entrada padrão, roda dentro da execução e vê `HOH_ROLE`, `HOH_ITER` e `HOH_MODEL` |
+| `HOH_MODEL_PLANNER` / `HOH_MODEL_DEVELOPER` / `HOH_MODEL_TESTER` | `opus` / `opus` / `sonnet` | modelos de cada papel (os do TCC) |
+| `RUNS_DIR` | `./execucoes` | onde as execuções são criadas |
+| `CAPTURE_SECONDS` | `6` | duração da gravação de cada rodada |
+| `GODOT` | `godot` no PATH | binário do Godot 4.7+ |
+
+> ⚠️ O padrão de `--run` dá ao agente permissão total dentro da execução (como no TCC, onde cada papel rodava isolado). Use num ambiente descartável, ou troque o comando em `HOH_AGENT_CMD`.
+
+A captura precisa de `xvfb-run` (ou de um display) e de `ffmpeg` para o vídeo; sem `ffmpeg`, só os quadros são salvos. As execuções novas ficam fora do git deste repositório (`.gitignore`), cada uma com o próprio histórico de commits por fase.
+
+---
+
 ## Estrutura do repositório
 
 ```
 masmorra-de-ferro/
 ├── run.sh                    # roda / abre no editor / testa uma execução
 ├── export.sh                 # gera binários standalone Linux x86_64
+├── iterate.sh                # cria e conduz execuções novas do ciclo HoH
 ├── scripts/common.sh         # funções compartilhadas pelos scripts
+├── template/                 # repositório-semente limpo: GDD, project.godot, assets CC0, tools
+├── experiment/               # prompts dos papéis, esquema e validador de relatorio_provas.json
 └── execucoes/
     └── exec_N_C2/            # N = 1..5, mesma estrutura em todas
         ├── GDD.md            # Game Design Document congelado (igual nas cinco)

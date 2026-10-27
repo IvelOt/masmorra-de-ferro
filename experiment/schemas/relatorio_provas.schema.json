@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/IvelOt/masmorra-de-ferro/experiment/schemas/relatorio_provas.schema.json",
+  "title": "relatorio_provas.json",
+  "description": "Evidência E_t que o Testador / Auditor Multimodal devolve ao fim de cada rodada HoH (condição C2). Os quatro campos obrigatórios são os pedidos no prompt do Testador (experiment/prompts/tester.md); o orquestrador só lê all_milestones_passed para decidir se a execução terminou.",
+  "type": "object",
+  "required": ["verified", "visual_findings", "gap", "all_milestones_passed"],
+  "properties": {
+    "iteration": {
+      "description": "Rodada auditada (1, 2, ...). Opcional: o prompt original não o exige, mas quatro das cinco execuções arquivadas o gravaram (exec_5 como 'iteracao').",
+      "type": "integer",
+      "minimum": 1
+    },
+    "verified": {
+      "description": "Funcionalidades e visuais verificados com sucesso nesta rodada (gates que passaram, comandos rodados, marcos cobertos).",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "visual_findings": {
+      "description": "Observações da inspeção visual dos quadros em media/iter_N/: escala e proporção de sprites, arma, portas, HUD (barras de Vida e Vigor, bússola, textos).",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "gap": {
+      "description": "Falhas visuais ou mecânicas reais observadas; vira entrada do Planejador na rodada seguinte.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "all_milestones_passed": {
+      "description": "true só se os seis marcos (M1 a M6) do GDD estão completos e funcionais; encerra a execução.",
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}
