@@ -1,0 +1,11 @@
+game/.godot/
+game/assets/daggerfall/
+game/runs/tmp/
+__pycache__/
+*.pyc
+
+# Captura bruta de --write-movie (o .mp4 equivalente é versionado) e exportações
+*.avi
+build/
+*.x86_64
+*.pck

@@ -27,3 +27,7 @@ __pycache__/
 .idea/
 *.swp
 .DS_Store
+
+# Execuções novas criadas por ./iterate.sh new: cada uma é um repositório git próprio
+/execucoes/*
+!/execucoes/exec_[1-5]_C2/
