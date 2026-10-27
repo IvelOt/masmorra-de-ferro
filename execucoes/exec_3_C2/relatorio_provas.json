@@ -1,0 +1,139 @@
+[
+  {
+    "iteration": 1,
+    "verified": [
+      "godot --headless --path game -s res://tests/run_gates.gd: 17 PASS, 0 FAIL (M1-A1..A6, M1-R1, M1-RNG, M2-A1..A7, M2-R2, M2-R3)",
+      "M1: controlador em 1a pessoa (movimento, strafe, giro em ticks inteiros, colisao AABB, parada em numero fixo de ticks, SHA-256 da tabela trig = dd6a64fb...)",
+      "M2: gerador de masmorra por semente (6-9 salas, conectividade BFS, sala da saida a >=20 celulas, portas validas, determinismo; 99/99 pares distintos), porta aberta atravessavel / fechada bloqueia",
+      "Replay deterministico: hash do nucleo igual ao da cena (M2-R3) e entre duas execucoes (M2-R2)",
+      "Visual: renderizacao 3D de corredor/sala com paredes de tijolo, piso de lajotas e teto escuro, perspectiva coerente, texturas sem distorcao aparente"
+    ],
+    "visual_findings": [
+      "media/iter_1/frame_1.png e frame_2.png (640x360) sao byte a byte identicos (cmp): nenhum movimento, giro ou acao e demonstrado entre os dois frames.",
+      "Cena: sala vazia com piso de lajotas marrons, paredes de tijolo azul-escuro e teto quase preto; perspectiva e fuga das linhas do piso consistentes, sem esticamento visivel de textura. Iluminacao muito escura (paredes e teto quase indistinguiveis), mas legivel.",
+      "Nao ha sprites de monstros, arma, escudo nem portas visiveis nos frames: nao e possivel avaliar proporcao/alinhamento de sprites (fora do escopo M1/M2 desta rodada; M4 nao implementado).",
+      "Nao ha HUD nos frames: sem barras de Vida/Vigor, bussola ou textos; portanto nao ha sobreposicao, mas tambem nenhum HUD a validar. Nenhum codigo de HUD/billboard existe em game/."
+    ],
+    "gap": [
+      "Os dois frames capturados sao identicos e mostram apenas uma sala vazia; nao evidenciam porta, geracao multi-sala nem movimento visualmente.",
+      "M3 (combate/vigor), M4 (inimigos billboard), M5 (automapa) e M6 (itens/XP/vitoria-derrota) nao implementados; HUD, bussola e sprites inexistentes.",
+      "Iluminacao muito escura reduz legibilidade de paredes/teto."
+    ],
+    "all_milestones_passed": false
+  },
+  {
+    "iteration": 2,
+    "verified": [
+      "godot --headless --path game -s res://tests/gates/run_gates.gd: 17 PASS, 0 FAIL (M1-A1..A6, M1-R1, M1-RNG, M2-A1..A7, M2-R2, M2-R3) apos godot --import",
+      "Preservation gate de M1/M2 mantido; replay deterministico igual entre nucleo, cena e duas execucoes",
+      "Visual: sala com lajotas, paredes de tijolo e teto escuro; perspectiva coerente sem distorcao de textura"
+    ],
+    "visual_findings": [
+      "media/iter_2/frame_1.png e frame_2.png (640x360) sao byte a byte identicos (cmp): nenhum movimento ou acao demonstrado.",
+      "Mesma cena da iteracao 1: sala vazia, ainda muito escura (paredes e teto quase indistinguiveis); a correcao de iluminacao planejada nao e perceptivel.",
+      "Nenhum sprite de monstro, espada, escudo ou porta visivel: proporcao/alinhamento nao avaliaveis.",
+      "Nenhum HUD: sem barras de Vida/Vigor, bussola ou texto; nada a validar quanto a sobreposicao."
+    ],
+    "gap": [
+      "Iteracao 2 planejava M3 (combate, HUD) e M4 (inimigos billboard), mas game/ nao contem combat.gd, enemy_sim.gd, weapon/enemy views nem HUD (grep por combat/enemy/hud/stamina sem resultados); HEAD so tem implementacao da iteracao 1.",
+      "Nao ha gates de M3/M4 em run_gates.gd; apenas 17 gates de M1/M2.",
+      "Atalho tests/run_gates.gd (comando do enunciado) falha com parse error ('Could not resolve class res://tests/gates/run_gates.gd') quando .godot nao existe; so funciona apos godot --import. Rodar tests/gates/run_gates.gd direto sem import falha com identificadores nao declarados.",
+      "Frames identicos e escuros, como na iteracao 1.",
+      "M3, M4, M5 e M6 nao implementados."
+    ],
+    "all_milestones_passed": false
+  },
+  {
+    "iteration": 3,
+    "verified": [
+      "godot --headless --path game -s res://tests/run_gates.gd: 46 PASS, 0 FAIL (M1, M2, M3-A1..A7/B1/V1..V3, M4-A1..A7/P1, V-LIGHT, V-ATTRACT, M3M4-R1..R4, G0-NOCACHE)",
+      "M3: combate do Guerreiro (golpe de 24 ticks, janela ativa 7-12, bloqueio, vigor, stun) e M4: inimigos com IA/BFS, ataques a cada 40 ticks, morte, replay deterministico (hash igual entre nucleo, cena, duas execucoes e gravacao)",
+      "Preservation gate M1/M2 mantido; atalho res://tests/run_gates.gd funciona nesta iteracao",
+      "Visual: HUD inferior (retrato, barra vermelha de Vida, barra verde de Vigor, bussola central) sem sobreposicao; espada e escudo proporcionais e nitidos; iluminacao melhorada (paredes de tijolo agora distinguiveis)"
+    ],
+    "visual_findings": [
+      "media/iter_3/frame_1.png e frame_2.png (640x360) diferem (cmp): a espada muda de pose/posicao (frame_1 inclinada ~60 graus mais a direita; frame_2 mais deitada e mais baixa), demonstrando animacao de ataque/arma; escudo roxo/dourado fixo a esquerda, identico nos dois.",
+      "Escudo (~128x128) e espada em pixel art sao proporcionais entre si e ao quadro; sem distorcao de escala; alinhados aos cantos inferiores esquerdo/direito acima do HUD.",
+      "HUD: painel inferior de 48px com retrato, barra de Vida (vermelha) e Vigor (verde) verticais e bussola com marcadores 'L' e 'S' ao centro; sem sobreposicao nem recorte. Nos frames as barras estao cheias; a barra verde aparece levemente menor no frame_2. Barras sao finas e sem rotulos/valores numericos; a bussola so mostra letras L/S no recorte capturado.",
+      "Cena: corredor escuro com paredes de tijolo e piso de lajotas; mais legivel que nas iteracoes 1-2, mas o teto continua quase preto.",
+      "Nenhum monstro, porta ou automapa aparece nos frames: sprites de inimigos e portas nao foram avaliaveis visualmente (M4-A7 passa so por contagem de nos)."
+    ],
+    "gap": [
+      "M5 (automapa) e M6 (itens, XP, niveis, vitoria/derrota) nao implementados: nao ha automap_sim.gd, items_sim.gd, overlay de automapa nem gates M5/M6 em run_gates.gd.",
+      "Os frames nao mostram inimigo nem porta, portanto escala de billboards de monstros nao foi confirmada visualmente.",
+      "Teto ainda muito escuro; barras do HUD sem rotulos/numeros."
+    ],
+    "all_milestones_passed": false
+  },
+  {
+    "iteration": 4,
+    "verified": [
+      "godot --headless --path game -s res://tests/run_gates.gd: 69 PASS, 0 FAIL (inclui M1-M4, M5-A1..A5, M6-A1..A6/B1..B3, M3-V1..V3, M6-V1..V3, V-CEIL, V-ATTRACT2, M3M4-R1..R4, M5M6-R1..R4, G0-NOCACHE)",
+      "M5: automapa (bitmap de celulas visitadas, overlay alpha 0.60 alternado por Tab, sem alterar o hash do nucleo)",
+      "M6: itens (ouro, pocoes de vida/vigor, chave), XP e niveis, condicao terminal ESCAPED/DEAD/TIMEOUT; 50/50 sementes escapam",
+      "Replay deterministico M5M6: hash identico entre nucleo, cena, duas execucoes e gravacao (7618d12a...)",
+      "Preservation gates M1-M4 mantidos",
+      "Visual: HUD inferior (retrato, barras de Vida e Vigor, texto de Nv/XP/Ouro e inventario, bussola) sem sobreposicao; espada e escudo proporcionais; porta de madeira arqueada visivel ao fundo no frame_1 em escala coerente com a perspectiva; teto agora distinguivel (marrom escuro com textura)"
+    ],
+    "visual_findings": [
+      "media/iter_4/frame_1.png e frame_2.png (640x360) diferem: frame_1 sala com porta de madeira ao fundo; frame_2 corredor estreito em perspectiva profunda com piso de lajotas e paredes azuladas; ambos mostram movimento/giro entre frames.",
+      "Escudo roxo/dourado (~128x128, esquerda) e espada (direita) em pixel art nitidos, proporcionais entre si e ao quadro, sem distorcao; identicos nos dois frames (pose IDLE).",
+      "HUD: painel inferior com retrato, barra vermelha de Vida e verde de Vigor, textos 'V 100/100', 'G 100/100', 'Nv 1 XP 0 Ouro 0', 'PV 0 PG 0 -' legiveis e sem sobreposicao; novidade da rodada em relacao a iter 3 (barras agora acompanhadas de valores numericos).",
+      "Bussola central: nos frames o recorte da fita mostra apenas 3-4 letras ('S o' no frame_1; 'D N L' no frame_2) com letras cortadas nas bordas ('D' e 'L' parciais) e ocupa uma area pequena; pouco legivel mas sem sobreposicao.",
+      "Porta ao fundo no frame_1: alinhada ao corredor, proporcional a altura da parede; escura e de baixo contraste.",
+      "Nenhum monstro, item ou automapa aparece nos frames: escala de billboards de inimigos/itens nao foi confirmada visualmente (apenas por gates M4-A7 e M6-V2 por contagem de sprites)."
+    ],
+    "gap": [
+      "Falha visual menor: letras da bussola cortadas nas bordas da janela e pequenas.",
+      "Frames capturados nao exercitam monstros, itens, automapa nem tela terminal; verificacao visual desses elementos limitada aos gates numericos.",
+      "Nenhuma falha mecanica observada (69/69 gates)."
+    ],
+    "all_milestones_passed": true
+  },
+  {
+    "iteration": 5,
+    "verified": [
+      "godot --headless --path game -s res://tests/run_gates.gd: 76 PASS, 0 FAIL (inclui M1-M6, M3-V1..V4, M6-V1..V3, V-LIGHT, V-CEIL, V-ATTRACT/2, A-SFX1..5, V-SHOWCASE, replays M3M4-R1..R4 e M5M6-R1..R4, G0-NOCACHE)",
+      "M1-M6 mantidos: controlador, gerador de masmorra, combate, inimigos billboard (M4-A7: 6 sprites/6 inimigos), automapa, itens/XP/terminal (M6-A6: 50/50 sementes ESCAPED)",
+      "Replay deterministico: hashes identicos entre nucleo, cena, duas execucoes e gravacao (M3M4 0b11aa74..., M5M6 7618d12a...)",
+      "Novidade da rodada: SFX (A-SFX1..5; 8 streams 16 bits/22050 Hz/mono, nucleo inalterado com audio) e cena de vitrine V-SHOWCASE (semente 223, inimigos em quadro desde t159)",
+      "Visual: HUD sem sobreposicao; bussola agora legivel (M3-V4: 0 rotulos cortados); esqueleto aparece em frame_2 com escala e ancoragem ao piso coerentes"
+    ],
+    "visual_findings": [
+      "media/iter_5/frame_1.png e frame_2.png (640x360) diferem (cmp): frame_1 sala com duas portas de madeira arqueadas ao fundo, sem inimigo; frame_2 mostra um esqueleto (olhos vermelhos) ao centro, sobre o piso, em pose de ataque.",
+      "Esqueleto: proporcao humanoide correta, sem distorcao, pes apoiados no piso (~y=275) e tamanho coerente com a distancia (menor que a espada/escudo em primeiro plano). Fundo transparente limpo, sem halo. Sprite relativamente escuro, com contraste moderado contra o piso escuro.",
+      "Portas ao fundo: arqueadas, alinhadas as paredes, proporcionais a altura da parede e a perspectiva; baixo contraste mas legiveis.",
+      "Escudo roxo/dourado (esquerda) e espada (direita) nitidos, ~128x128, proporcionais e identicos nos dois frames (IDLE).",
+      "HUD inferior: retrato, barra vermelha de Vida e verde de Vigor, textos 'V 100/100', 'G 100/100', 'Nv 1 XP 0 Ouro 0', 'PV 0 PG 0 -' legiveis, sem sobreposicao. Bussola mostra 'NO N NE' completa, sem letras cortadas (corrige falha de iter 4).",
+      "Teto marrom escuro texturizado distinguivel das paredes; iluminacao escura mas legivel."
+    ],
+    "gap": [
+      "Falha visual menor: HUD ocupa area pequena e texto de status e pequeno em 640x360.",
+      "Frames nao exercitam itens, automapa, tela terminal nem efeitos de combate; verificacao visual desses elementos limitada aos gates numericos.",
+      "Nenhuma falha mecanica observada (76/76 gates)."
+    ],
+    "all_milestones_passed": true
+  },
+  {
+    "iteration": 6,
+    "verified": [
+      "godot --headless --path game -s res://tests/run_gates.gd: 83 PASS, 0 FAIL (inclui M5M6-R3/R4 replay ESCAPED, G0-NOCACHE, M3-V4 bussola, M5-V1/V2 automapa, M6-V4/V5 HUD e tela terminal, A-SFX1..7, V-SHOWCASE/V-SHOWCASE2)",
+      "Replay deterministico: hash do nucleo igual ao da cena e entre execucoes; terminal ESCAPED reproduzido",
+      "HUD visivel nos frames: retrato, barras verticais de Vida (vermelha) e Vigor (verde) com rotulos V 100/100 e G 100/100, linha Nv/XP/Ouro, PV/PG, bussola NO N NE centralizada, sem sobreposicao",
+      "Sprites de arma (espada) e escudo de primeira pessoa renderizados nitidos, sem distorcao",
+      "Sprite de esqueleto (frame_2) proporcional e ancorado no piso; portas em arco de madeira visiveis no fundo (frame_1)"
+    ],
+    "visual_findings": [
+      "media/iter_6/frame_1.png e frame_2.png (640x360) sao diferentes: frame_1 corredor/sala com duas portas de madeira ao fundo, sem inimigos; frame_2 mostra um esqueleto a meia distancia em outra sala.",
+      "Esqueleto: escala coerente com o corredor (altura ~ metade da parede, pes no piso); sem esticamento. Portas: proporcao e perspectiva coerentes com as paredes de tijolo.",
+      "Escudo (esquerda) e espada (direita) sao grandes, ocupando a parte inferior do quadro e cobrindo parte do piso; Ficam acima da barra de HUD, sem sobrepor texto. Estilo (pixel art dourado/roxo) destoa levemente do esqueleto, mas e aceitavel.",
+      "HUD: barras V/G finas e texto pequeno (~8 px) porem legivel; nenhum texto cortado ou sobreposto; bussola centrada; campo PV 0 PG 0 - e enigmatico mas sem falha visual.",
+      "Ambiente escuro; teto quase preto, legibilidade das paredes do fundo no frame_2 e baixa (azul-escuro) mas adequada."
+    ],
+    "gap": [
+      "Nenhuma falha mecanica: 83/83 gates passam.",
+      "Nenhuma falha visual real; apenas observacoes esteticas menores (sprites de arma grandes, iluminacao muito escura, texto de HUD pequeno). Os 2 frames nao mostram automapa, tela terminal nem combate em acao (cobertos apenas pelos gates)."
+    ],
+    "all_milestones_passed": true
+  }
+]

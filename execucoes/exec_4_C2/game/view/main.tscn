@@ -1,0 +1,40 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://view/main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://view/player_view.tscn" id="2"]
+[ext_resource type="Script" path="res://view/dungeon_view.gd" id="3"]
+[ext_resource type="Script" path="res://view/audio_view.gd" id="4"]
+[ext_resource type="Script" path="res://view/enemy_view.gd" id="5"]
+[ext_resource type="PackedScene" path="res://view/weapon_view.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://view/hud_daggerfall.tscn" id="7"]
+[ext_resource type="Script" path="res://view/item_view.gd" id="8"]
+[ext_resource type="PackedScene" path="res://view/automap_overlay.tscn" id="9"]
+[ext_resource type="Script" path="res://view/end_screen.gd" id="10"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1")
+
+[node name="DungeonView" type="Node3D" parent="."]
+script = ExtResource("3")
+
+[node name="Enemies" type="Node3D" parent="."]
+script = ExtResource("5")
+
+[node name="Items" type="Node3D" parent="."]
+script = ExtResource("8")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+
+[node name="AudioView" type="Node" parent="."]
+script = ExtResource("4")
+
+[node name="Weapon" parent="." instance=ExtResource("6")]
+layer = 1
+
+[node name="HUD" parent="." instance=ExtResource("7")]
+
+[node name="Automap" parent="." instance=ExtResource("9")]
+
+[node name="EndScreen" type="CanvasLayer" parent="."]
+layer = 4
+script = ExtResource("10")

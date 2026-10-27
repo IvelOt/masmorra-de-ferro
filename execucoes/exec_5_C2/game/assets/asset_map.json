@@ -1,0 +1,71 @@
+{
+  "ceiling.dungeon.01": {
+    "free": "res://assets/free/ceiling_dungeon_01.png"
+  },
+  "door.closed": {
+    "free": "res://assets/free/door_closed.png"
+  },
+  "door.locked": {
+    "free": "res://assets/free/door_locked.png"
+  },
+  "door.open": {
+    "free": "res://assets/free/door_open.png"
+  },
+  "enemy.dummy": {
+    "free": "res://assets/free/enemy_dummy.png"
+  },
+  "enemy.guardian": {
+    "free": "res://assets/free/enemy_guardian.png"
+  },
+  "enemy.rat": {
+    "free": "res://assets/free/enemy_rat.png"
+  },
+  "enemy.skeleton": {
+    "free": "res://assets/free/enemy_skeleton.png"
+  },
+  "exit.portal": {
+    "free": "res://assets/free/exit_portal.png"
+  },
+  "floor.dungeon.01": {
+    "free": "res://assets/free/floor_dungeon_01.png"
+  },
+  "item.gold": {
+    "free": "res://assets/free/item_gold.png"
+  },
+  "item.key": {
+    "free": "res://assets/free/item_key.png"
+  },
+  "item.potion_hp": {
+    "free": "res://assets/free/item_potion_hp.png"
+  },
+  "item.potion_sp": {
+    "free": "res://assets/free/item_potion_sp.png"
+  },
+  "torch.0": {
+    "free": "res://assets/free/torch_0.png"
+  },
+  "torch.1": {
+    "free": "res://assets/free/torch_1.png"
+  },
+  "torch.2": {
+    "free": "res://assets/free/torch_2.png"
+  },
+  "torch.3": {
+    "free": "res://assets/free/torch_3.png"
+  },
+  "ui.portrait": {
+    "free": "res://assets/free/ui_portrait.png"
+  },
+  "wall.dungeon.stone01": {
+    "free": "res://assets/free/wall_dungeon_stone01.png"
+  },
+  "wall.dungeon.stone02": {
+    "free": "res://assets/free/wall_dungeon_stone02.png"
+  },
+  "weapon.shield": {
+    "free": "res://assets/free/weapon_shield.png"
+  },
+  "weapon.sword": {
+    "free": "res://assets/free/weapon_sword.png"
+  }
+}

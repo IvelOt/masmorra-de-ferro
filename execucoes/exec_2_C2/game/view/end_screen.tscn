@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://view/end_screen.gd" id="1_end"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_parch"]
+bg_color = Color(0.84705883, 0.78431374, 0.627451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.22745098, 0.16470589, 0.09411765, 1)
+
+[node name="EndScreen" type="CanvasLayer"]
+layer = 4
+visible = false
+script = ExtResource("1_end")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 120.0
+offset_top = 50.0
+offset_right = 520.0
+offset_bottom = 290.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_parch")
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 16.0
+offset_right = 390.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.22745098, 0.16470589, 0.09411765, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Lines" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 64.0
+offset_right = 390.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(0.22745098, 0.16470589, 0.09411765, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="Footer" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 204.0
+offset_right = 390.0
+offset_bottom = 224.0
+theme_override_colors/font_color = Color(0.22745098, 0.16470589, 0.09411765, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1

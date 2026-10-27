@@ -1,0 +1,29 @@
+# Godot 4: cache de importação e arquivos gerados
+.godot/
+.import/
+*.import.tmp
+*.translation
+mono_crash.*.json
+.mono/
+data_*/
+
+# Assets proprietários (perfil "daggerfall") nunca entram no repositório
+game/assets/daggerfall/
+**/game/assets/daggerfall/
+
+# Saídas de execução e exportação
+**/game/runs/tmp/
+build/
+*.x86_64
+*.pck
+*.avi
+
+# Python
+__pycache__/
+*.pyc
+
+# Editores / SO
+.vscode/
+.idea/
+*.swp
+.DS_Store

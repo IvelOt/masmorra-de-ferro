@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://view/automap_overlay.gd" id="1_am"]
+
+[node name="AutomapOverlay" type="CanvasLayer"]
+layer = 3
+
+[node name="Map" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.6)
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+script = ExtResource("1_am")

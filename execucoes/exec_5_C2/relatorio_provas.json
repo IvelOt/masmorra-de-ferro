@@ -1,0 +1,25 @@
+{
+  "iteracao": 5,
+  "verified": [
+    "Gates headless: `godot --headless --path game -s res://tests/run_gates.gd` => 89/89 PASS, 0 FAIL (nenhum FAIL no log).",
+    "M6 implementado e coberto: game/sim/items_sim.gd, game/sim/pilot.gd, tests/gates/m6_gates.gd existem; _step_quaff e _step_terminal em world_sim.gd deixaram de ser stubs (pocoes PV/PF, estados DEAD > ESCAPED > TIMEOUT).",
+    "M6-A1..A6 e M6-AUX-1..7 PASS: geracao de itens por 100 sementes, pocoes/chave/ouro, saida exige chave, morte congela a simulacao, XP/niveis (nivel 2/3, hp_max, dano), piloto automatico ESCAPED em 50/50 sementes, TIMEOUT no tick 18000.",
+    "Preservation Gate: M1-A*, M2-A*, M3-A*, M4-A*, M5-A1..A5, LINT (0 violacoes), R1, R1-AI, R1-M5, R3-*, DEMO-4, R1-pilot, R2, R3-pilot e R4 (3 sementes ESCAPED) continuam PASS; determinismo por semente preservado.",
+    "SCENE/ASSETS/VITRINE PASS: HUD com HpText/SpText/PotText/KeyText/LvlText, espada e escudo 128x128, Sprite3D billboard de inimigo, Items 12/12, vitrine de 600 ticks com item coletado.",
+    "Visual (frame_1/frame_2, 640x360): corredor de tijolos em perspectiva correta, piso e teto coerentes, espada (inferior direita) e escudo roxo/dourado (inferior esquerda) nitidos e proporcionais, sem distorcao.",
+    "Visual: HUD inferior legivel e sem sobreposicao: retrato, barras vertical Vida (vermelha) e Vigor (verde), textos 'Vida 100/100', 'Vigor 100/100', 'PV 0  PF 0', 'Chave: nao', bussola ('N 89°' / 'NE 27°'), 'Nivel 1' e 'Ouro 0 · XP 0/100' alinhados em grade."
+  ],
+  "visual_findings": [
+    "frame_1.png: visao no corredor, bussola N 89°. Duas aberturas laterais avermelhadas (portas/arcos) em primeiro plano e corredor longo ao fundo; texturas pixeladas por ampliacao, estilo consistente. Sem distorcao de perspectiva.",
+    "frame_2.png: bussola NE 27°, corredor diagonal com parede esquerda proxima; uma porta de madeira avermelhada pequena e distante e visivel no fundo do corredor, proporcional a distancia e centrada no corredor.",
+    "Espada e escudo identicos nos dois frames (idle), sem sobreposicao com o texto do HUD; o escudo toca o topo da barra do HUD mas nao cobre nenhum texto.",
+    "Barras Vida/Vigor sao finas (largura ~8 px) e cheias (100/100); o texto vermelho 'Vida' tem contraste moderado sobre o cinza escuro mas e legivel.",
+    "Nenhum monstro (rato/esqueleto/guardiao), item no chao, automapa ou efeito de combate aparece nos frames; a proporcao dos sprites de monstros nao pode ser avaliada visualmente (apenas por gates numericos/SCENE). capture.avi/mp4 nao usados como evidencia."
+  ],
+  "gap": [
+    "Midia de auditoria pouco demonstrativa: so 2 frames sem monstros, itens, combate, automapa ou tela final; escala dos sprites de inimigos/itens nao comprovada em imagem (somente por gates).",
+    "Texto vermelho 'Vida' com contraste baixo e barras muito finas (observacao visual menor, nao falha funcional).",
+    "Nenhuma falha mecanica observada: 89/89 gates PASS."
+  ],
+  "all_milestones_passed": true
+}

@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://view/end_screen.gd" id="1_end"]
+
+[node name="EndScreen" type="CanvasLayer"]
+layer = 4
+visible = false
+script = ExtResource("1_end")
+
+[node name="Dim" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.55)
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 160.0
+offset_top = 80.0
+offset_right = 480.0
+offset_bottom = 280.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Panel"]
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 312.0
+offset_bottom = 48.0
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.12549, 0.313726, 0.12549, 1)
+theme_override_font_sizes/font_size = 20
+text = "VOCÊ ESCAPOU!"
+
+[node name="Lines" type="Label" parent="Panel"]
+offset_left = 8.0
+offset_top = 56.0
+offset_right = 312.0
+offset_bottom = 192.0
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.164706, 0.117647, 0.0627451, 1)
+theme_override_font_sizes/font_size = 12

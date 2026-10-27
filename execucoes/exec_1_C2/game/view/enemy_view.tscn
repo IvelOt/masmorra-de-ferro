@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://view/enemy_view.gd" id="1"]
+
+[node name="EnemyView" type="Sprite3D"]
+billboard = 2
+shaded = false
+alpha_cut = 1
+texture_filter = 0
+script = ExtResource("1")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="."]
+unit_size = 2.0
+max_distance = 20.0

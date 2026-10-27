@@ -1,0 +1,25 @@
+{
+  "verified": [
+    "godot --headless --path game -s res://tests/run_gates.gd: exit 0, 43 PASS, 0 FAIL (M1-A1..A6, PCG32, M2-A1..A6, M2-PRES, R1, M3-TRACE, M3-A1..A7, M4-A1..A7, Spawn, M5-A1..A5, M6-A1..A6, M6-PRES)",
+    "python3 tools/lint_sim.py: 0 violações (núcleo determinístico)",
+    "M1 a M6 implementados em game/sim/ (player_sim, dungeon_gen, combat, enemy_sim, automap_sim, items_sim, pilot) e cobertos por gates mecânicos, incluindo Preservation Gates",
+    "Camada de view para M5/M6 existe: automap_overlay, compass, item_view, end_screen, hud_daggerfall",
+    "Runner em modo piloto (--room=dungeon --mode=pilot --seed=1 --ticks=20000) executa com exit 0 e cadeia de hash final",
+    "Capturas da rodada 3 agora diferem entre si (frame_1 e frame_2 não são idênticos, corrigindo a falha da rodada 2); vídeo gameplay_iter_3.mp4 com 5,7 s",
+    "Visual: paredes de tijolo, piso e teto texturizados com perspectiva coerente; espada em primeira pessoa nítida e proporcional"
+  ],
+  "visual_findings": [
+    "frame_1: corredor/sala de tijolos com perspectiva correta e legível; texto 'DEMONSTRAÇÃO — pressione qualquer tecla' no topo (modo vitrine). Teto ainda bastante escuro, mas aceitável.",
+    "frame_2: câmera junto a parede girada; textura de tijolo aparece muito pixelada (ampliação nearest-neighbor de perto), coerente com estilo retrô, sem artefato de distorção. Bússola mudou de 'L' para 'O', mostrando que há rotação/movimento entre os quadros.",
+    "Arma: espada no canto inferior direito, escala e proporção adequadas, sem distorção.",
+    "Escudo roxo/dourado no canto inferior esquerdo: agora parece escudo segurado (pose de repouso) mas ainda é cortado pela barra de HUD e pelo canto; leve ambiguidade, sem sobreposição problemática.",
+    "HUD: retrato, barras verticais de Vida (vermelha) e Vigor (verde) alinhadas, textos 'PV 100/100', 'VG 100/100', 'Nv 1 XP 0/100', 'Ouro 0', contadores de chave/poções (x0) e bússola/minimapa-bússola no canto direito com letra cardeal. Nenhuma sobreposição de textos observada. Os textos são pequenos mas legíveis.",
+    "Nenhum monstro, porta, item no chão, automapa aberto ou tela final aparece nas duas capturas: sprites de monstros e portas não puderam ser avaliados visualmente."
+  ],
+  "gap": [
+    "As capturas mostram apenas exploração de sala vazia; não comprovam visualmente combate, inimigos, portas, itens, automapa aberto nem tela de vitória/derrota (M3 a M6 só comprovados por gates mecânicos).",
+    "Escudo de repouso parcialmente cortado pela HUD no canto inferior esquerdo (menor).",
+    "Teto muito escuro (menor)."
+  ],
+  "all_milestones_passed": true
+}

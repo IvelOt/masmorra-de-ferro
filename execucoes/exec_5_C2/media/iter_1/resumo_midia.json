@@ -1,0 +1,11 @@
+{
+  "iteration": 1,
+  "syntax_check_ok": true,
+  "syntax_output": "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\n",
+  "frames_captured": true,
+  "frame_files": [
+    "/home/ivelot/Projetos/firstmate/projects/tcc-exp-runs/exec_5_C2/media/iter_1/frame_1.png",
+    "/home/ivelot/Projetos/firstmate/projects/tcc-exp-runs/exec_5_C2/media/iter_1/frame_2.png"
+  ],
+  "timestamp": "2026-10-10T05:31:12.007264"
+}
