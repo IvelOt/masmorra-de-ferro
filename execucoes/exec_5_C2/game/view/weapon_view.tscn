@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://view/weapon_view.gd" id="1_wv"]
+
+[node name="WeaponView" type="CanvasLayer"]
+layer = 1
+script = ExtResource("1_wv")
+
+[node name="Shield" type="TextureRect" parent="."]
+offset_left = 32.0
+offset_top = 244.0
+offset_right = 160.0
+offset_bottom = 372.0
+
+[node name="Sword" type="TextureRect" parent="."]
+offset_left = 448.0
+offset_top = 212.0
+offset_right = 576.0
+offset_bottom = 340.0

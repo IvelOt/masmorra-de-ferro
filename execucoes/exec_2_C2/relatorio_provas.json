@@ -1,0 +1,29 @@
+{
+  "iteration": 3,
+  "verified": [
+    "godot --headless --path game -s res://tests/run_gates.gd: 60/60 gates PASS (exit 0), cobrindo M1 a M6 e gates de preservacao",
+    "M1: controlador deterministico (M1-A1..A6, incl. SHA-256 da tabela seno e invariante de colisao)",
+    "M2: gerador de masmorra (salas, conectividade BFS, distancia >= 20, portas, determinismo por semente)",
+    "M3: combate do Guerreiro (M3-A1..A7, X1..X4) e M3-V1 (arma com 2 Sprite2D, HUD, Enemy_0 Sprite3D billboard)",
+    "M4: inimigos (M4-A1..A7, X1..X7): estados IDLE/CHASE/WINDUP/STRIKE, campo de fluxo BFS, ataques, morte e XP",
+    "M5: automapa (M5-A1..A5, X1): celulas visitadas, overlay por Tab, modulate.a=0.60, layer=3",
+    "M6: itens, XP, niveis, chave/porta trancada, condicoes terminais ESCAPED/DEAD (M6-A1..A6, X1..X3, V1, V2); piloto automatico escapa 50/50",
+    "Visual (frame_1): corredor de tijolo com piso e iluminacao coerentes, espada em primeira pessoa e escudo proporcionais, HUD legivel",
+    "Visual (frame_2): chave dourada no piso com escala coerente, HUD atualizado (+25 de ouro, contador de ouro x25, XP 10/100)"
+  ],
+  "visual_findings": [
+    "frame_1.png e frame_2.png (640x360) sao diferentes: frame_1 mostra o inicio em modo DEMONSTRACAO (parede de tijolo, canto a direita, texto 'DEMONSTRACAO - tecle algo para jogar'); frame_2 mostra o corredor escuro em direcao Leste com uma chave dourada no piso e mensagem '+25 de ouro'.",
+    "Espada (canto inferior direito): nitida, proporcao adequada, sem distorcao; fica sobreposta a borda superior do HUD de forma aceitavel (arma em primeira pessoa).",
+    "Escudo roxo/dourado (canto inferior esquerdo): proporcional, sem distorcao, assenta acima da barra do HUD (base y=306, validado por M6-V2), sem corte.",
+    "HUD: retrato, barras verticais de Vida (vermelha) e Vigor (verde) com textos 'Vida 100/100', 'Vigor 100/100', 'Nv 1 XP x/100', bussola central (SE S SW em frame_1; NE E SE em frame_2, ordem coerente), contadores de pocoes/chave/ouro a direita e mensagem na linha inferior. Nenhuma sobreposicao ou texto cortado observados.",
+    "Barras de Vida/Vigor sao finas (12 px) mas o texto numerico ao lado compensa; barras ainda cheias nos dois frames, entao nao ha demonstracao visual do esvaziamento.",
+    "Chave no piso (frame_2): sprite pequeno mas em escala plausivel para a distancia, sem distorcao de proporcao.",
+    "Nenhum monstro, porta ou automapa aparece nos frames; esses elementos so foram validados por gates de cena (M3-V1, M4-A7, M5-A5, M6-V1), nao visualmente nas imagens capturadas.",
+    "frame_2 e bastante escuro (iluminacao com vinheta/neblina); legivel, mas o piso distante quase some."
+  ],
+  "gap": [
+    "Cobertura visual limitada: os 2 frames nao exibem monstros, portas, automapa nem tela final; a verificacao visual desses elementos depende apenas dos gates de cena.",
+    "Menor: frame_2 muito escuro ao fundo do corredor; barras de Vida/Vigor estreitas. Nenhuma falha mecanica observada."
+  ],
+  "all_milestones_passed": true
+}

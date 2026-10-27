@@ -1,0 +1,92 @@
+Godot Engine v4.7.2.stable.arch_linux.ed1daf0bf (2026-08-17 01:18:38 UTC) - https://godotengine.org
+
+PASS M1-A1 pos_x=20644 pos_z=15360 vel_x=139
+PASS M1-A2 pos_x=5120 pos_z=9258
+PASS M1-A3 turn=64 angle=0 pos=(5120,15360); turn=-64 angle=0 pos=(5120,15360)
+PASS M1-A4 600 ticks sem interseção; final=(3146,16514)
+PASS M1-A5 v0=139 parou em 32 ticks, permanece=true
+PASS M1-A6 sha=dd6a64fbcbc4bfb38e59940b6ed273b1fc828b19111416444b3066e9b09d43c1 controle=true
+PASS AUX-PCG32 a15c02b7,7b47f409,ba1d3330,83d2f293,bfa4784b,cbed606e
+PASS AUX-DIV 
+PASS AUX-FACE encostado=false invadindo=true
+PASS AUX-STRAFE-TERM vel_x=118 parada=31
+PASS R1-M1 483dd33815497049b20d32918f1d531048d05d71ee6f0427597dbe7c9952b2ee
+PASS M2-A1 100 sementes com 6..9 salas sem sobreposição
+PASS M2-A2 todas as células não-SOLID alcançáveis
+PASS M2-A3 distância mínima 40
+PASS M2-A4 1158 portas válidas
+PASS M2-A5 reprodutível; 100/100 pares diferem
+PASS M2-A6 (a) pos_x=30336 vel_x=0 (b) porta=3 (c) pos_x=37520 invariante=true
+PASS AUX-DOOR-BACK angle=2048 porta=2
+PASS AUX-DOOR-FAR célula=11 porta=2
+PASS AUX-DOOR-LOCKED porta=4 pos_x=30336
+PASS M3-A1 WINDUP 1-6, ACTIVE 7-12, RECOVERY 13-24, IDLE 25; reataque no 25
+PASS M3-A2 frente: hp t6=100 t7=75 t25=75; 60°: hp=100
+PASS M3-A3 hp=75,75 ticks 7-24; swing_hits=[0, 1]
+PASS M3-A4 swing=IDLE stamina=11
+PASS M3-A5 (a) hp=93 st=83 blk=true (b) hp=75 st=100 (c) hp=75
+PASS M3-A6 tick22 block: blk=true swing=IDLE; tick22 só attack: swing=WINDUP st=5
+PASS M3-A7 600 ticks; final hp=0 stamina=9
+PASS AUX-HIT-30 hp=75
+PASS AUX-HIT-BACK hp=100
+PASS AUX-KILL após 4: hp=0 DEAD; 5º acertou=false
+PASS AUX-BLOCK-MOVE pos_x=12417 vel_x=65
+PASS AUX-REGEN stamina=60
+PASS AUX-PENDING hp=84
+PASS M4-A1 (a) IDLE 300 ticks atrás da parede; (b) CHASE no tick 1; (c) porta=3 awake=true state=CHASE no tick 121
+PASS M4-A2 128 inimigos (sementes 1-20) chegam a WINDUP; pior caso s1 id2 guardian d=116 tick=4494/7377
+PASS M4-A3 (a) CHASE 1, WINDUP 2-19, STRIKE 20 (hp -12), COOLDOWN 21; (b) STRIKE 20 fora do alcance, hp=100000
+PASS M4-A4 rat: 1º=10 n=16 Δ=39 ok; skeleton: 1º=20 n=10 Δ=64 ok; guardian: 1º=32 n=7 Δ=91 ok
+PASS M4-A5 (a) sementes 1-5 x 900 ticks; (b) sementes 1-20 x 1200 ticks: sem sólido nem sobreposição (128 inimigos se moveram em (b))
+PASS M4-A6 rato DEAD no tick 7, inerte até 120; hp jogador=100; cadáver não colide=true
+PASS M4-A7 gerada s1: 6 sprites ok; test_room: 2 sprites ok
+PASS M4-AUX-1 sementes 1-100: rooms-1 inimigos, 1 guardião na saída; total rat=274 skeleton=264 guardian=100
+PASS M4-AUX-2 (2,7)->(13,7) livre, parede bloqueia, porta fechada/aberta, canto sólido bloqueia: [true, true, true, true, true, true]
+PASS M4-AUX-3 dist(5,7)=3 empates N,L,S,O=[true, true, true, true] recálculos=[1, 1, 1, 2, 2, 3]
+PASS M4-AUX-4 esqueleto bloqueado: hp -3 vigor -11; guardião pelas costas: hp -25
+PASS M4-AUX-5 walker 900 ticks com IA ativa, movidos/STRIKEs: s1=5/11 s2=6/17 s3=5/17 s4=5/68 s5=5/15; cadeias com/sem main.tscn iguais
+PASS M4-AUX-6 assert_types aceita 3 tipos x 6 estados
+PASS M5-A1 fixture 64 células; sementes 1-20 = sala 0 + contorno
+PASS M5-A2 count=146 pos_z fixo=true 
+PASS M5-A3 monotônico; s1=56 s2=36 s3=121 s4=48 s5=70 trilha=146
+PASS M5-A4 cadeia com/sem Tab, alternâncias: s1==/18 s2==/18 s3==/18 s4==/18 s5==/18
+PASS M5-A5 overlay=ok visible false->true->false alpha=0.60
+PASS M6-A1 100 sementes; s=1: 12 itens
+PASS M6-A2 t1=true t2=true t3=true t4=true(sp 31->81) invariante=ok
+PASS M6-A3 (a) sem chave=NONE (b) ESCAPED no tick 2=true (c) porta 2 trancada=true aberta=true
+PASS M6-A4 DEAD no tick 1; 120 ticks congelados; tick=121
+PASS M6-A5 A: t7 nível=2 xp=105 hp=120/120 vigor=88/110 dano=30 | B: nível=3 hp_max=140 vigor_max=120 dano=35 | C: nível=3 xp=1010 | D: boneco abatido xp=0
+PASS M6-A6 ESCAPED=50/50 DEAD=0 TIMEOUT=0 média terminal_tick=1882 falhas=[]
+PASS M6-AUX-1 taken=true inv={"gold":10,"key":true,"level":1,"potion_hp":1,"potion_sp":1,"xp":0} parado=true
+PASS M6-AUX-2 20 sementes: inimigos e grade iguais; walker 900 rng_dungeon=parado; piloto 900 rng=parados
+PASS M6-AUX-3 fixtures sem itens=true R1=523fef79264724d2
+PASS M6-AUX-4 terminal=TIMEOUT no tick 18000
+PASS M6-AUX-5 exit_used=true terminal=DEAD
+PASS M6-AUX-6 items=[{"cell_x":3,"cell_z":7,"id":0,"taken":false,"type":"potion_hp"},{"cell_x":4,"cell_z":7,"id":1,"taken":true,"type":"potion_sp"},{"cell_x":5,"cell_z":7,"id":2,"taken":false,"type":"key"},{"cell_x":6,"cell_z":7,"id":3,"taken":true,"type":"gold"}]
+PASS M6-AUX-7 quaff=[1, 0, 0, 0, 1]
+PASS PILOT-AUX-1 turn0=-48 |lat| 8192->8170 facing no tick 12 angle=3520
+PASS PILOT-AUX-2 1000 chamadas sem step: canon idêntico
+PASS PILOT-AUX-3 trilha f692e7e243aa4754
+PASS LINT [lint_sim] 0 violação(ões)
+PASS R1 523fef79264724d26ba78e7b53b623a8f32de0157ef9eb7a95f50e058f8553d6
+PASS R3-test-room 523fef79264724d26ba78e7b53b623a8f32de0157ef9eb7a95f50e058f8553d6 vs 523fef79264724d26ba78e7b53b623a8f32de0157ef9eb7a95f50e058f8553d6
+PASS R1-AI e9a240dcb41561baf24ee0594be266fadc8f089d9a7ccdcf00e9ea0aae7f686f
+PASS R1-M5 402d5674afe77462d8f310d349453dc9a1cda15a14afc92af1ddcfaac8485ff9
+PASS R3-automap 402d5674afe77462
+PASS R3-dummy demo_iter2 3468b457bab58a39
+PASS R3-seed-1 portas abertas=0 e9a240dcb41561ba
+PASS R3-seed-2 portas abertas=1 6b815d58519c530d
+PASS R3-seed-3 portas abertas=0 2b081cc2ff1c1a5c
+PASS R3-seed-4 portas abertas=0 34a3ccb340e08e20
+PASS R3-seed-5 portas abertas=0 3154cf32fb8d9216
+PASS R3-enemies demo_iter4 a0bf09f010d3e56a
+PASS DEMO-4 600 ticks; esqueleto=DEAD bloqueio=t183 -3 porta=3 rato awake=true state=DEAD hp=97
+PASS R1-pilot terminal=ESCAPED ce30f5381464895d
+PASS R3-pilot terminal=ESCAPED 274dbc42d41d8969
+PASS R2 terminal=ESCAPED terminal_tick=2180 ce30f5381464895d
+PASS R4 s1=ok(ESCAPED) s2=ok(ESCAPED) s3=ok(ESCAPED)
+PASS TYPES enemies=[{"awake":false,"hp":75,"id":0,"pos_x":6349,"pos_z":15360,"state":"IDLE","state_ticks":0,"type":"dummy"}] visited_sha256=8f7825e2efbe2eb8
+PASS SCENE player=CharacterBody3D cam_y=1.50 fwd=(1.00,-0.00,0.00) HpText="Vida 100/100" SpText="Vigor 100/100" Sword=128x128 Shield=128x128 Enemies/enemy_0=Sprite3D billboard 0.05 Items=12/12 PotText="PV 0  PF 0" KeyText="Chave: não" LvlText="Nível 1" StatText="Ouro 0 · XP 0/100" HUD fonte12/retângulos=ok EndScreen=layer4 oculto->"VOCÊ ESCAPOU!"
+PASS ASSETS 23 identificadores
+PASS VITRINE tick=600 célula [47, 12]->[51, 24] terminal=NONE itens coletados=1
+[gates] 89/89 PASS

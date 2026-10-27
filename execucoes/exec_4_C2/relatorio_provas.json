@@ -1,0 +1,25 @@
+{
+  "iteration": 5,
+  "verified": [
+    "run_gates.gd (headless, Godot 4.7.2): 75 PASS, 0 FAIL (a rodada 4 tinha 1 FAIL em SCENE-hud; agora PASS)",
+    "M1-M4 preservados (PRES-grid sementes 1..100 PASS; R1/R3 e R3-combate: C_K do núcleo == C_K da cena)",
+    "M5 automapa: overlay Tab visível sobre a cena 3D; UI-6 mostra 66 células visitadas no tick 150",
+    "M6 itens/XP/níveis/condição terminal: UI-6 coleta de item (tick 131) e golpe em inimigo (tick 92); M6-A6 piloto ESCAPED em 50 de 50 sementes (mínimo 40); R4 replay do piloto com C_K idêntico",
+    "Telas e HUD: UI-1 faixa 640x48 com 7 elementos sem sobreposição; UI-2 bússola com cardinal centralizada; UI-3 barras Vida/Vigor com rótulos V e G; UI-4 arma (cabo/escudo/Hand) sem sombras espúrias; UI-5 tela final ESCAPOU/MORREU/TEMPO; UI-7 10 sons de M5/M6 válidos",
+    "Cena: 23 texturas 32x32, 13 portas e portal, 7 sprites billboard FIXED_Y/NEAREST, view/ sem física",
+    "Visual: frame_1 e frame_2 mostram HUD legível (retrato, VIDA 100/100 e 97/100, VIGOR, NV/XP, contadores de poção/chave/ouro, mensagens 'Esqueleto te viu' e 'Pegou Poção de Vida', bússola N/S com marcador), sem sobreposição de elementos"
+  ],
+  "visual_findings": [
+    "frame_1 (640x360): câmera num canto de corredor; perspectiva de parede/piso/teto correta, texturas nearest nítidas, porta de madeira reforçada à direita com proporção coerente com a parede (parcialmente cortada pela borda do quadro). Mensagem 'Esqueleto te viu' aparece no HUD, mas nenhum monstro está visível no quadro (fora do campo de visão), então a proporção do sprite de monstro não pôde ser avaliada visualmente.",
+    "Arma: espada na direita (~x 420-510, y 230-310) com proporção adequada ao viewport e escudo roxo/dourado à esquerda (~x 165-245, y 255-315) bem desenhado; o escudo é cortado pelo topo do HUD no limite inferior (intencional, UI-4: passa do recorte). Ambos ficam afastados ~190 px entre si, posicionamento ainda um pouco artificial, porém não há distorção.",
+    "HUD inferior (48 px): retrato, barras Vida (vermelha) e Vigor (verde) com rótulos V/G, textos 'VIDA/VIGOR/NV XP' legíveis, contadores com ícones (poção vermelha, poção verde, chave, ouro) e bússola no canto direito. Sem sobreposição; a bússola agora mostra a cardinal ('N' em frame_1, 'S' em frame_2) centralizada com marcações laterais e marcador vermelho, legível (melhoria sobre a rodada 4). Barra de Vigor em frame_2 mostra 79/100 e Vida 97/100, coerente com os textos (as barras são muito estreitas, ~10 px, e a diferença é pouco perceptível).",
+    "frame_2: automapa ligado como overlay sépia translúcido com rótulo 'MAPA — Tab fecha'; a cena 3D permanece visível por baixo. O mapa mostra apenas um pequeno fragmento (retângulo com marcador de jogador amarelo) por ter poucas células exploradas; legível mas minúsculo no quadro. O sépia reduz o contraste da cena, esperado.",
+    "Sprite do item/poção (já coletado) e portas distantes em frame_2 sem distorção. Não aparece nenhum monstro, portal ou tela final nos dois quadros, portanto não foi possível auditar visualmente sprites de monstros nem a tela final (cobertos apenas por gates UI-5 e M4-A7)."
+  ],
+  "gap": [
+    "Visual (menor): nenhum dos dois quadros capturados contém monstro, portal ou tela final, logo esses visuais só foram verificados por gate programático, não por inspeção de imagem.",
+    "Visual (menor): barras de Vida/Vigor muito finas e escudo/espada distantes entre si; automapa pequeno quando poucas células visitadas.",
+    "Mecânico: nenhuma falha observada; 75 PASS, 0 FAIL."
+  ],
+  "all_milestones_passed": true
+}

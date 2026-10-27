@@ -1,0 +1,41 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://view/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://view/player_view.tscn" id="2_player"]
+[ext_resource type="Script" path="res://view/dungeon_view.gd" id="3_dungeon"]
+[ext_resource type="Script" path="res://view/audio_view.gd" id="4_audio"]
+[ext_resource type="Script" path="res://input/input_sampler.gd" id="5_input"]
+[ext_resource type="Script" path="res://view/enemy_view.gd" id="6_enemy"]
+[ext_resource type="PackedScene" path="res://view/weapon_view.tscn" id="7_weapon"]
+[ext_resource type="PackedScene" path="res://view/hud_daggerfall.tscn" id="8_hud"]
+[ext_resource type="PackedScene" path="res://view/automap_overlay.tscn" id="9_map"]
+[ext_resource type="Script" path="res://view/item_view.gd" id="10_items"]
+[ext_resource type="PackedScene" path="res://view/end_screen.tscn" id="11_end"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="DungeonView" type="Node3D" parent="."]
+script = ExtResource("3_dungeon")
+
+[node name="Enemies" type="Node3D" parent="."]
+script = ExtResource("6_enemy")
+
+[node name="Items" type="Node3D" parent="."]
+script = ExtResource("10_items")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+
+[node name="WeaponView" parent="." instance=ExtResource("7_weapon")]
+
+[node name="HUD" parent="." instance=ExtResource("8_hud")]
+
+[node name="AutomapOverlay" parent="." instance=ExtResource("9_map")]
+
+[node name="EndScreen" parent="." instance=ExtResource("11_end")]
+
+[node name="AudioView" type="Node" parent="."]
+script = ExtResource("4_audio")
+
+[node name="InputSampler" type="Node" parent="."]
+script = ExtResource("5_input")

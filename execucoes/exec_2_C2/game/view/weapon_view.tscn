@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://view/weapon_view.gd" id="1_weapon"]
+
+[node name="WeaponView" type="CanvasLayer"]
+layer = 1
+script = ExtResource("1_weapon")
+
+[node name="Shield" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(100, 258)
+scale = Vector2(3, 3)
+
+[node name="Sword" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(500, 286)
+scale = Vector2(4, 4)

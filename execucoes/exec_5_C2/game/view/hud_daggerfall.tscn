@@ -1,0 +1,164 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://view/hud_daggerfall.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_hud")
+
+[node name="Frame" type="ColorRect" parent="."]
+offset_top = 312.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.227451, 0.207843, 0.188235, 1)
+
+[node name="Edge" type="ColorRect" parent="Frame"]
+offset_right = 640.0
+offset_bottom = 2.0
+mouse_filter = 2
+color = Color(0.117647, 0.105882, 0.0941176, 1)
+
+[node name="Highlight" type="ColorRect" parent="Frame"]
+offset_top = 2.0
+offset_right = 640.0
+offset_bottom = 3.0
+mouse_filter = 2
+color = Color(0.419608, 0.380392, 0.345098, 1)
+
+[node name="Portrait" type="TextureRect" parent="Frame"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture_filter = 1
+stretch_mode = 0
+
+[node name="HpBack" type="ColorRect" parent="Frame"]
+offset_left = 48.0
+offset_top = 4.0
+offset_right = 56.0
+offset_bottom = 44.0
+mouse_filter = 2
+color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+
+[node name="Fill" type="ColorRect" parent="Frame/HpBack"]
+offset_right = 8.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.690196, 0.12549, 0.12549, 1)
+
+[node name="SpBack" type="ColorRect" parent="Frame"]
+offset_left = 60.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 44.0
+mouse_filter = 2
+color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+
+[node name="Fill" type="ColorRect" parent="Frame/SpBack"]
+offset_right = 8.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.12549, 0.627451, 0.25098, 1)
+
+[node name="HpText" type="Label" parent="Frame"]
+offset_left = 74.0
+offset_top = 4.0
+offset_right = 176.0
+offset_bottom = 22.0
+vertical_alignment = 1
+theme_override_colors/font_color = Color(1, 0.415686, 0.352941, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Vida 100/100"
+
+[node name="SpText" type="Label" parent="Frame"]
+offset_left = 74.0
+offset_top = 24.0
+offset_right = 176.0
+offset_bottom = 42.0
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.352941, 0.878431, 0.478431, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Vigor 100/100"
+
+[node name="PotText" type="Label" parent="Frame"]
+offset_left = 180.0
+offset_top = 4.0
+offset_right = 266.0
+offset_bottom = 22.0
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.878431, 0.815686, 0.627451, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "PV 0  PF 0"
+
+[node name="KeyText" type="Label" parent="Frame"]
+offset_left = 180.0
+offset_top = 24.0
+offset_right = 266.0
+offset_bottom = 42.0
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.878431, 0.815686, 0.627451, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Chave: não"
+
+[node name="Compass" type="Label" parent="Frame"]
+offset_left = 270.0
+offset_top = 4.0
+offset_right = 370.0
+offset_bottom = 22.0
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.878431, 0.815686, 0.627451, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "L 0°"
+
+[node name="LvlText" type="Label" parent="Frame"]
+offset_left = 270.0
+offset_top = 24.0
+offset_right = 370.0
+offset_bottom = 42.0
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_colors/font_color = Color(0.878431, 0.815686, 0.627451, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Nível 1"
+
+[node name="Message" type="Label" parent="Frame"]
+offset_left = 400.0
+offset_top = 4.0
+offset_right = 632.0
+offset_bottom = 22.0
+vertical_alignment = 1
+clip_text = true
+theme_override_colors/font_color = Color(0.941176, 0.894118, 0.752941, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = ""
+
+[node name="StatText" type="Label" parent="Frame"]
+offset_left = 400.0
+offset_top = 24.0
+offset_right = 632.0
+offset_bottom = 42.0
+vertical_alignment = 1
+clip_text = true
+theme_override_colors/font_color = Color(0.878431, 0.815686, 0.627451, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0705882, 0.0627451, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Ouro 0 · XP 0/100"
